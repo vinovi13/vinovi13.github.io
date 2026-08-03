@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vincent Bouchet Ferrara — Intégration &amp; automatisation</title>
+<meta name="description" content="Développeur indépendant. Automatisation et intégrations en production : n8n auto-hébergé, API, Supabase, Stripe, React.">
+<meta property="og:title" content="Vincent Bouchet Ferrara — Intégration &amp; automatisation">
+<meta property="og:description" content="Je construis et j'exploite des automatisations en production.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,600;9..144,0,900;9..144,1,300&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F4EE; --paper-2:#EFEAE0; --ink:#16130F; --muted:#6E665A;
+    --rule:#D8D0C0; --accent:#C93A16; --accent-soft:rgba(201,58,22,.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Karla',-apple-system,sans-serif;font-size:16px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:0;
+  }
+  body::before{
+    content:'';position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:0;
+    background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);
+    background-size:88px 88px;
+    -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 72%);
+    mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 72%);
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 1.75rem;position:relative;z-index:1;}
+  .fade{opacity:0;transform:translateY(14px);animation:in .7s cubic-bezier(.2,.7,.3,1) forwards;}
+  @keyframes in{to{opacity:1;transform:none;}}
+
+  /* hero */
+  .hero{padding:6.5rem 0 4rem;border-bottom:1px solid var(--rule);}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:2rem;display:flex;align-items:center;gap:.8rem;}
+  .eyebrow::after{content:'';height:1px;flex:1;background:var(--rule);}
+  h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(2.6rem,8vw,5.6rem);line-height:.92;letter-spacing:-.03em;margin:0 0 1.6rem;}
+  .lede{font-size:clamp(1.05rem,2vw,1.35rem);max-width:48ch;margin:0 0 2.6rem;line-height:1.5;}
+  .meta{display:flex;flex-wrap:wrap;gap:0 2.4rem;font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;}
+  .meta span{padding:.3rem 0;}
+  .cta{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.6rem;}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;padding:.95rem 1.7rem;border:1px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;transition:all .25s ease;display:inline-block;}
+  .btn:hover{background:var(--accent);border-color:var(--accent);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink);}
+  .btn.ghost{background:transparent;color:var(--ink);}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* sections */
+  .sec{padding:4.5rem 0 1rem;}
+  .sec-head{display:flex;align-items:baseline;gap:1.2rem;margin-bottom:2.6rem;}
+  .sec-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.16em;padding-top:.4rem;}
+  .sec-title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.5rem,3.4vw,2.3rem);letter-spacing:-.02em;margin:0;}
+
+  /* cases */
+  .case{border-top:1px solid var(--rule);}
+  .case:last-of-type{border-bottom:1px solid var(--rule);}
+  .case-btn{width:100%;background:none;border:0;text-align:left;cursor:pointer;padding:2rem 0;display:grid;grid-template-columns:3.4rem 1fr auto;gap:1.2rem;align-items:start;color:inherit;font-family:inherit;transition:background .2s ease;}
+  .case-btn:hover{background:var(--accent-soft);}
+  .case-num{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--muted);padding-top:.5rem;}
+  .case-title{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.15rem,2.6vw,1.65rem);line-height:1.2;letter-spacing:-.015em;display:block;margin-bottom:.5rem;}
+  .case-role{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--muted);letter-spacing:.05em;}
+  .sign{font-family:'JetBrains Mono',monospace;font-size:1.4rem;color:var(--accent);line-height:1;padding-top:.4rem;}
+  .case-body{padding:0 0 2.8rem 4.6rem;max-width:74ch;display:none;}
+  .case.open .case-body{display:block;animation:in .45s ease forwards;}
+  @media(max-width:720px){.case-body{padding-left:0;}.case-btn{grid-template-columns:2.2rem 1fr auto;}}
+
+  .lbl{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:2rem 0 .8rem;padding-bottom:.4rem;border-bottom:1px solid var(--rule);}
+  .dec{margin-bottom:1.5rem;padding-left:1.1rem;border-left:2px solid var(--rule);transition:border-color .2s;}
+  .dec:hover{border-left-color:var(--accent);}
+  .dec-t{font-weight:700;font-size:.98rem;margin-bottom:.3rem;}
+  .dec-d{color:var(--muted);font-size:.94rem;}
+  .res{list-style:none;padding:0;margin:0;}
+  .res li{padding:.45rem 0 .45rem 1.4rem;position:relative;font-size:.95rem;border-bottom:1px dotted var(--rule);}
+  .res li::before{content:'→';position:absolute;left:0;color:var(--accent);font-family:'JetBrains Mono',monospace;}
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.4rem;}
+  .tag{font-family:'JetBrains Mono',monospace;font-size:.68rem;padding:.3rem .6rem;background:var(--paper-2);border:1px solid var(--rule);color:var(--muted);}
+
+  /* media */
+  .media{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-top:1.4rem;}
+  .slot{border:1px dashed var(--rule);background:var(--paper-2);padding:2.2rem .9rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.04em;line-height:1.7;}
+  .slot img,.slot video{width:100%;display:block;border:1px solid var(--rule);}
+
+  /* stack */
+  .stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));border-top:1px solid var(--rule);}
+  .col{padding:1.6rem 1.4rem 1.6rem 0;border-bottom:1px solid var(--rule);}
+  .col-l{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem;}
+  .col ul{list-style:none;margin:0;padding:0;}
+  .col li{font-size:.92rem;padding:.16rem 0;}
+
+  /* capacités */
+  .cap{border:1px solid var(--ink);padding:2rem 1.8rem;margin-top:1rem;background:var(--paper-2);}
+  .cap h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.25rem;margin:0 0 1rem;letter-spacing:-.01em;}
+  .cap ul{list-style:none;margin:0;padding:0;}
+  .cap li{padding:.55rem 0 .55rem 1.6rem;position:relative;font-size:.96rem;border-bottom:1px dotted var(--rule);}
+  .cap li:last-child{border-bottom:0;}
+  .cap li::before{content:'▸';position:absolute;left:0;color:var(--accent);}
+
+  /* services */
+  .svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);}
+  .card{background:var(--paper);padding:1.7rem 1.5rem;display:flex;flex-direction:column;transition:background .2s ease;}
+  .card:hover{background:var(--paper-2);}
+  .card-t{font-family:'Fraunces',serif;font-weight:600;font-size:1.1rem;margin-bottom:.5rem;letter-spacing:-.01em;}
+  .card-d{font-size:.9rem;color:var(--muted);flex:1;margin-bottom:1.1rem;}
+  .card-p{font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--accent);letter-spacing:.06em;}
+
+  /* contact */
+  .contact{margin-top:4.5rem;background:var(--ink);color:var(--paper);padding:3.4rem 2rem;}
+  .contact h2{font-family:'Fraunces',serif;font-weight:300;font-style:italic;font-size:clamp(1.7rem,4.4vw,2.9rem);margin:0 0 1rem;letter-spacing:-.02em;}
+  .contact p{color:#B9B0A2;max-width:48ch;margin:0 0 2rem;}
+  .clist{font-family:'JetBrains Mono',monospace;font-size:.82rem;display:flex;flex-direction:column;gap:.7rem;align-items:flex-start;}
+  .clist a{color:var(--paper);text-decoration:none;border-bottom:1px solid #4A443B;padding-bottom:.25rem;transition:.2s;}
+  .clist a:hover{border-color:var(--accent);color:var(--accent);}
+  .foot{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);margin-top:2.5rem;letter-spacing:.06em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero fade">
+    <div class="eyebrow">Intégration &amp; automatisation</div>
+    <h1>Vincent<br>Bouchet Ferrara</h1>
+    <p class="lede">
+      Je construis et j'exploite des automatisations en production.
+      Pas des démonstrations : des systèmes qui tournent encore dans six mois.
+    </p>
+    <div class="meta">
+      <span>Marseille, France</span><span>Télétravail</span><span>FR natif · EN bilingue</span><span>Indépendant</span>
+    </div>
+    <div class="cta">
+      <a class="btn" href="#realisations">Voir les réalisations</a>
+      <a class="btn ghost" href="#contact">Me contacter</a>
+    </div>
+  </header>
+
+  <!-- ============ 01 RÉALISATIONS ============ -->
+  <section class="sec fade" id="realisations" style="animation-delay:.1s">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Réalisations</h2></div>
+
+    <article class="case open">
+      <button class="case-btn" onclick="tog(this)">
+        <span class="case-num">01</span>
+        <span>
+          <span class="case-title">SaaS de recherche d'emploi assistée par IA</span>
+          <span class="case-role">Conception, développement et exploitation — seul · depuis mars 2026</span>
+        </span>
+        <span class="sign">−</span>
+      </button>
+      <div class="case-body">
+        <div class="lbl">Le problème</div>
+        <p>Agréger des offres d'emploi issues de plusieurs API qui ne partagent ni format, ni identifiants, ni qualité de données — puis les analyser, les classer, et facturer l'utilisateur au résultat réellement livré.</p>
+
+        <div class="lbl">Décisions techniques</div>
+        <div class="dec"><div class="dec-t">Déduplication sur le contenu, pas sur l'URL</div><div class="dec-d">La même offre apparaît sous des adresses différentes selon la source. La clé est construite sur l'intitulé et le nom d'entreprise normalisé — suppression des formes juridiques, des mentions d'agence, des suffixes. La règle est appliquée à l'identique côté applicatif et par un index d'unicité en base : les deux doivent coïncider, sinon la même offre est facturée deux fois.</div></div>
+        <div class="dec"><div class="dec-t">Facturation adossée à l'insertion réelle</div><div class="dec-d">Le débit ne suit pas le nombre d'offres traitées mais le nombre d'insertions réussies. Les rejets par contrainte d'unicité sont exclus du décompte. Débit et mise à jour de statut sont câblés en parallèle, jamais en série — en série, la seconde branche est silencieusement ignorée si la première échoue.</div></div>
+        <div class="dec"><div class="dec-t">Contrôle du budget de sortie des modèles</div><div class="dec-d">Les modèles de langage facturent la sortie plusieurs fois le prix de l'entrée, et le raisonnement interne est facturé comme de la sortie. Chaque appel est plafonné, la température fixée par cas d'usage — extraction, classement, rédaction — et le raisonnement désactivé là où il n'apporte rien.</div></div>
+        <div class="dec"><div class="dec-t">Collecte multi-sources normalisée</div><div class="dec-d">Interrogation de plusieurs API d'emploi aux schémas incompatibles — Google Jobs, Adzuna, France Travail, plateformes de travail à distance — puis consolidation dans un format unique avant analyse.</div></div>
+
+        <div class="lbl">Ce qui tourne</div>
+        <ul class="res">
+          <li>Paiements Stripe validés de bout en bout en mode live : abonnements et packs à l'unité</li>
+          <li>Facturation à l'usage, un crédit débité par résultat livré</li>
+          <li>Emails transactionnels avec SPF, DKIM et DMARC configurés et validés</li>
+          <li>Front déployé par build statique avec pré-rendu des pages publiques</li>
+        </ul>
+
+        <!-- MÉDIAS : remplacer le contenu de .slot par <img src="media/xxx.png" alt=""> ou <video src="media/xxx.mp4" autoplay muted loop playsinline></video> -->
+        <div class="media">
+          <div class="slot">media/scan.mp4<br>vidéo 30 s — lancement d'un scan jusqu'aux résultats classés</div>
+          <div class="slot">media/stripe.png<br>tableau de bord Stripe en mode live</div>
+        </div>
+
+        <div class="tags"><span class="tag">React 18</span><span class="tag">Tailwind</span><span class="tag">Supabase</span><span class="tag">Stripe</span><span class="tag">n8n</span><span class="tag">API REST</span></div>
+      </div>
+    </article>
+
+    <article class="case">
+      <button class="case-btn" onclick="tog(this)">
+        <span class="case-num">02</span>
+        <span>
+          <span class="case-title">Déploiement et supervision pilotés depuis Telegram</span>
+          <span class="case-role">Architecture et exploitation · en production</span>
+        </span>
+        <span class="sign">+</span>
+      </button>
+      <div class="case-body">
+        <div class="lbl">Le problème</div>
+        <p>Administrer une infrastructure de production à distance, depuis un mobile, sans accès confortable à un terminal — sans transformer l'automatisation en risque.</p>
+
+        <div class="lbl">Décisions techniques</div>
+        <div class="dec"><div class="dec-t">Auto-hébergement plutôt que service géré</div><div class="dec-d">Instance n8n sous Docker sur VPS. Pas de plafond d'exécutions, pas de dépendance à un tiers pour la disponibilité, contrôle complet des données qui transitent. En contrepartie : sauvegardes, supervision et mises à jour à ma charge — c'est assumé et outillé.</div></div>
+        <div class="dec"><div class="dec-t">Aucun déploiement sans approbation humaine</div><div class="dec-d">L'assistant IA analyse le code concerné et propose un correctif. Le différentiel est envoyé pour validation. Rien n'est appliqué avant réponse explicite. Un déploiement entièrement automatique sans validation ni retour arrière est une panne différée.</div></div>
+        <div class="dec"><div class="dec-t">Retour arrière automatique et vérification a posteriori</div><div class="dec-d">Échec du build ou du contrôle de santé après mise en ligne : retour à l'état précédent sans intervention. Un audit de performance est relancé après chaque déploiement et le rapport renvoyé sur le canal.</div></div>
+        <div class="dec"><div class="dec-t">Pilotage conversationnel</div><div class="dec-d">Assistants IA sur Telegram et WhatsApp pour le suivi d'avancement, les alertes de disponibilité et le déclenchement d'actions — sans ouvrir d'interface d'administration.</div></div>
+
+        <div class="lbl">Ce qui tourne</div>
+        <ul class="res">
+          <li>Exploitation complète depuis un mobile : diagnostic, correctif, déploiement, retour arrière</li>
+          <li>Désactivation automatique des workflows en échec répété</li>
+          <li>Contrôles de santé planifiés, sauvegardes quotidiennes, alertes de disponibilité</li>
+        </ul>
+
+        <div class="media">
+          <div class="slot">media/n8n-canvas.png<br>capture du canvas d'un workflow complet</div>
+          <div class="slot">media/telegram-deploy.mp4<br>vidéo 45 s — instruction, correctif, approbation, déploiement, rapport</div>
+        </div>
+
+        <div class="tags"><span class="tag">n8n auto-hébergé</span><span class="tag">Docker</span><span class="tag">VPS Linux</span><span class="tag">Bash</span><span class="tag">API Telegram</span><span class="tag">WhatsApp</span></div>
+      </div>
+    </article>
+
+    <article class="case">
+      <button class="case-btn" onclick="tog(this)">
+        <span class="case-num">03</span>
+        <span>
+          <span class="case-title">Marque e-commerce et chaîne de production de contenu</span>
+          <span class="case-role">Fondateur — technique et opérations · depuis mi-2023</span>
+        </span>
+        <span class="sign">+</span>
+      </button>
+      <div class="case-body">
+        <div class="lbl">Le problème</div>
+        <p>Produire un flux régulier de contenu vidéo pour une marque, sans équipe et sans budget de production — sur le serveur qui héberge déjà des services critiques.</p>
+
+        <div class="lbl">Décisions techniques</div>
+        <div class="dec"><div class="dec-t">Isolation stricte de la chaîne de production</div><div class="dec-d">Conteneur dédié avec limites de processeur et de mémoire. Un rendu vidéo ne doit jamais dégrader les services de production hébergés sur la même machine.</div></div>
+        <div class="dec"><div class="dec-t">Enchaînement d'API spécialisées plutôt qu'un outil unique</div><div class="dec-d">Génération des plans, synthèse vocale, transcription pour le sous-titrage, puis montage et incrustation par FFmpeg. Chaque étape est remplaçable indépendamment, ce qui permet d'arbitrer coût contre qualité étape par étape.</div></div>
+        <div class="dec"><div class="dec-t">Budget plafonné en amont</div><div class="dec-d">Le coût par vidéo est calculé avant la génération. Le volume mensuel est borné par une enveloppe fixe plutôt que par la disponibilité des API.</div></div>
+
+        <div class="lbl">Ce qui tourne</div>
+        <ul class="res">
+          <li>Boutique WordPress / WooCommerce avec suivi des conversions</li>
+          <li>Chaîne de production vidéo automatisée de bout en bout</li>
+          <li>Prospection B2B et suivi des réponses automatisés, alimentation de CRM</li>
+        </ul>
+
+        <div class="media">
+          <div class="slot">media/vinv-video.mp4<br>vidéo 15 s issue de la chaîne de génération</div>
+          <div class="slot">media/vinv-shop.png<br>capture de la boutique</div>
+        </div>
+
+        <div class="tags"><span class="tag">WordPress</span><span class="tag">WooCommerce</span><span class="tag">Docker</span><span class="tag">FFmpeg</span><span class="tag">ElevenLabs</span><span class="tag">fal.ai</span></div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ============ 02 CE QUE JE PRENDS EN CHARGE ============ -->
+  <section class="sec fade" style="animation-delay:.16s">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Ce que je prends en charge</h2></div>
+    <div class="cap">
+      <h3>Au-delà du développement</h3>
+      <ul>
+        <li><b>Réduction des coûts d'infrastructure.</b> Audit d'un projet en production : identification des postes de dépense réels, ligne par ligne, et correctifs appliqués. Je le fais sur mes propres projets avant de le proposer.</li>
+        <li><b>Internalisation d'outils payants.</b> Beaucoup d'abonnements se paient pour trois fonctions utilisées. Je réimplémente ces fonctions dans votre infrastructure et l'abonnement disparaît.</li>
+        <li><b>Collecte et consolidation de données.</b> Interrogation d'API multiples aux formats incompatibles, normalisation, déduplication, alimentation automatique de CRM.</li>
+        <li><b>Supervision conversationnelle.</b> Assistants IA Telegram ou WhatsApp pour suivre l'avancement d'un projet, recevoir les alertes et déclencher des actions sans ouvrir d'interface.</li>
+        <li><b>Délivrabilité email.</b> Diagnostic et correction SPF, DKIM, DMARC, avec rapport de test avant et après.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 03 STACK ============ -->
+  <section class="sec fade" style="animation-delay:.22s">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Stack technique</h2></div>
+    <div class="stack">
+      <div class="col"><div class="col-l">Automatisation &amp; intégration</div><ul><li>n8n auto-hébergé (Docker, VPS)</li><li>API REST · webhooks</li><li>Gestion d'erreurs &amp; reprise</li><li>Tâches planifiées</li><li>Alimentation automatique de CRM</li></ul></div>
+      <div class="col"><div class="col-l">Données &amp; backend</div><ul><li>Supabase</li><li>Requêtes SQL</li><li>Edge Functions</li><li>Index d'unicité &amp; déduplication</li></ul></div>
+      <div class="col"><div class="col-l">Collecte &amp; API emploi</div><ul><li>Google Jobs</li><li>Adzuna</li><li>France Travail</li><li>Plateformes de travail à distance</li></ul></div>
+      <div class="col"><div class="col-l">Paiement</div><ul><li>Stripe en production</li><li>Abonnements &amp; packs</li><li>Webhooks de paiement</li><li>Facturation à l'usage</li></ul></div>
+      <div class="col"><div class="col-l">Frontend &amp; CMS</div><ul><li>React 18 · Tailwind</li><li>JavaScript · HTML / CSS</li><li>WordPress</li><li>WooCommerce</li></ul></div>
+      <div class="col"><div class="col-l">Infrastructure &amp; coûts</div><ul><li>Linux · Docker · VPS</li><li>Déploiement automatisé</li><li>Supervision &amp; sauvegardes</li><li>SPF / DKIM / DMARC</li><li>Audit de coûts d'exploitation</li></ul></div>
+      <div class="col"><div class="col-l">IA appliquée &amp; média</div><ul><li>Intégration d'API de modèles</li><li>Extraction structurée · scoring</li><li>Maîtrise du coût par appel</li><li>ElevenLabs · fal.ai · FFmpeg</li></ul></div>
+      <div class="col"><div class="col-l">Acquisition &amp; mesure</div><ul><li>Meta Ads</li><li>Gestionnaire d'événements Meta</li><li>Suivi de conversion</li><li>SEO technique</li></ul></div>
+      <div class="col"><div class="col-l">Création</div><ul><li>Ableton Live — avancé</li><li>CapCut</li><li>Canva</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 04 PRESTATIONS ============ -->
+  <section class="sec fade" style="animation-delay:.28s">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Prestations</h2></div>
+    <div class="svc">
+      <div class="card"><div class="card-t">Audit d'automatisation</div><div class="card-d">Cartographie de vos processus, plan d'automatisation priorisé, estimation de charge.</div><div class="card-p">[prix]</div></div>
+      <div class="card"><div class="card-t">Audit de coûts d'infrastructure</div><div class="card-d">Identification ligne par ligne des postes de dépense réels et correctifs appliqués.</div><div class="card-p">[prix]</div></div>
+      <div class="card"><div class="card-t">Workflow livré en production</div><div class="card-d">Une automatisation complète : intégrations, gestion d'erreurs, supervision, documentation.</div><div class="card-p">[prix]</div></div>
+      <div class="card"><div class="card-t">Migration vers n8n auto-hébergé</div><div class="card-d">Instance VPS sous Docker, migration des workflows, sauvegardes et supervision.</div><div class="card-p">[prix]</div></div>
+      <div class="card"><div class="card-t">Intégration Stripe</div><div class="card-d">Paiements, abonnements ou crédits, webhooks, passage en mode live.</div><div class="card-p">[prix]</div></div>
+      <div class="card"><div class="card-t">Délivrabilité email</div><div class="card-d">Diagnostic SPF, DKIM, DMARC, correctifs et rapport de test avant / après.</div><div class="card-p">[prix]</div></div>
+      <div class="card"><div class="card-t">Renfort technique en marque blanche</div><div class="card-d">Développement à la journée pour agences. Vous gardez la relation client.</div><div class="card-p">[TJM]</div></div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact fade" id="contact" style="animation-delay:.34s">
+    <h2>Un projet en attente faute de ressource technique&nbsp;?</h2>
+    <p>Décrivez-moi le périmètre. Retour sous 24&nbsp;h avec faisabilité, délai et prix. Je travaille en direct ou en marque blanche pour des agences.</p>
+    <div class="clist">
+      <a href="mailto:vincent.bouchetferrara@gmail.com">vincent.bouchetferrara@gmail.com</a>
+      <a href="https://www.linkedin.com/in/vincent-sjs-vinv/" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="CV-Vincent-Bouchet.pdf" target="_blank">Télécharger le CV (PDF)</a>
+    </div>
+    <div class="foot">Marseille · Télétravail · Missions France, Suisse et international</div>
+  </section>
+
+</div>
+
+<script>
+  function tog(btn){
+    var c = btn.parentElement;
+    var open = c.classList.toggle('open');
+    btn.querySelector('.sign').textContent = open ? '−' : '+';
+  }
+</script>
+</body>
+</html>
