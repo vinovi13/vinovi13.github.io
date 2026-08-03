@@ -80,8 +80,15 @@
 
   /* media */
   .media{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.8rem;margin-top:1.4rem;}
-  .slot{border:1px dashed var(--rule);background:var(--paper-2);padding:2.2rem .9rem;text-align:center;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);letter-spacing:.04em;line-height:1.7;}
-  .slot img,.slot video{width:100%;display:block;border:1px solid var(--rule);}
+  .media-full{grid-template-columns:1fr;}
+  .shot{margin:0;background:var(--paper-2);border:1px solid var(--rule);padding:.7rem;}
+  .shot img,.shot video{width:100%;display:block;border:1px solid var(--rule);border-radius:2px;}
+  .shot figcaption{font-family:'JetBrains Mono',monospace;font-size:.66rem;color:var(--muted);letter-spacing:.03em;line-height:1.6;margin-top:.7rem;padding:0 .2rem;}
+  .note{margin-top:1.6rem;border-left:3px solid var(--accent);background:var(--paper-2);padding:1.2rem 1.4rem;}
+  .note b{font-size:.92rem;display:block;margin-bottom:.6rem;}
+  .note ul{list-style:none;margin:0;padding:0;}
+  .note li{font-size:.92rem;color:var(--muted);padding:.35rem 0 .35rem 1.2rem;position:relative;}
+  .note li::before{content:'·';position:absolute;left:.3rem;color:var(--accent);font-weight:700;}
 
   /* stack */
   .stack{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));border-top:1px solid var(--rule);}
@@ -167,9 +174,12 @@
         </ul>
 
         <!-- MÉDIAS : remplacer le contenu de .slot par <img src="media/xxx.png" alt=""> ou <video src="media/xxx.mp4" autoplay muted loop playsinline></video> -->
+        <div class="media media-full">
+          <figure class="shot"><video src="media/scan.mp4" controls muted playsinline></video><figcaption>Scan réel : 10 offres collectées, analysées et classées en 55 secondes.</figcaption></figure>
+        </div>
         <div class="media">
-          <div class="slot"><video src="media/scan.mp4" controls muted playsinline style="width:100%;display:block;border:1px solid var(--rule)"></video></div>
-          <div class="slot">media/stripe.png<br>tableau de bord Stripe en mode live</div>
+          <figure class="shot"><img src="media/n8n-canvas.png" alt="Vue d'ensemble du workflow"><figcaption>Le workflow complet : quatre branches de collecte parallèles convergeant vers l'analyse.</figcaption></figure>
+          <figure class="shot"><img src="media/n8n-detail.png" alt="Détail des nœuds"><figcaption>Détail : le débit de crédits et la mise à jour de statut câblés en parallèle.</figcaption></figure>
         </div>
 
         <div class="tags"><span class="tag">React 18</span><span class="tag">Tailwind</span><span class="tag">Supabase</span><span class="tag">Stripe</span><span class="tag">n8n</span><span class="tag">API REST</span></div>
@@ -202,9 +212,14 @@
           <li>Contrôles de santé planifiés, sauvegardes quotidiennes, alertes de disponibilité</li>
         </ul>
 
-        <div class="media">
-          <div class="slot"><img src="media/n8n-canvas.png" alt="Vue d'ensemble du workflow n8n"></div>
-          <div class="slot"><img src="media/n8n-detail.png" alt="Détail des nœuds de scoring et de facturation"></div>
+        <div class="note">
+          <b>Ce que ça évite concrètement</b>
+          <ul>
+            <li>Un correctif déployé sans relecture qui casse la production un dimanche soir</li>
+            <li>Un workflow en échec qui tourne trois jours avant qu'on s'en aperçoive</li>
+            <li>Une base perdue sans sauvegarde exploitable</li>
+            <li>Un site indisponible découvert par un client plutôt que par une alerte</li>
+          </ul>
         </div>
 
         <div class="tags"><span class="tag">n8n auto-hébergé</span><span class="tag">Docker</span><span class="tag">VPS Linux</span><span class="tag">Bash</span><span class="tag">API Telegram</span><span class="tag">WhatsApp</span></div>
@@ -236,9 +251,14 @@
           <li>Prospection B2B et suivi des réponses automatisés, alimentation de CRM</li>
         </ul>
 
-        <div class="media">
-          <div class="slot">media/vinv-video.mp4<br>vidéo 15 s issue de la chaîne de génération</div>
-          <div class="slot">media/vinv-shop.png<br>capture de la boutique</div>
+        <div class="note">
+          <b>Le raisonnement de coût</b>
+          <ul>
+            <li>Une production vidéo classique se facture à la journée de tournage et de montage</li>
+            <li>Chaque étape de la chaîne est une API remplaçable : on arbitre qualité contre prix étape par étape</li>
+            <li>Le coût unitaire est connu avant de lancer la génération, jamais découvert sur la facture</li>
+            <li>Le volume mensuel est borné par une enveloppe fixe</li>
+          </ul>
         </div>
 
         <div class="tags"><span class="tag">WordPress</span><span class="tag">WooCommerce</span><span class="tag">Docker</span><span class="tag">FFmpeg</span><span class="tag">ElevenLabs</span><span class="tag">fal.ai</span></div>
