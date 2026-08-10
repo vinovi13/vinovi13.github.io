@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vincent Bouchet Ferrara — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Karla:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FFFDF9; --ink:#16130F; --muted:#6E665A;
+    --rule:#DCD4C4; --accent:#C93A16; --soft:#F4F0E7;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E8E3D8;}
+  body{font-family:'Karla',-apple-system,sans-serif;color:var(--ink);font-size:9.4pt;line-height:1.42;-webkit-font-smoothing:antialiased;}
+  .sheet{width:210mm;margin:14px auto;background:var(--paper);padding:13mm 14mm 10mm;box-shadow:0 2px 22px rgba(0,0,0,.14);}
+
+  header{border-bottom:1.5px solid var(--ink);padding-bottom:4mm;margin-bottom:4mm;}
+  .name{font-family:'Fraunces',serif;font-weight:900;font-size:23pt;line-height:.95;letter-spacing:-.025em;margin:0 0 2mm;}
+  .role{font-family:'JetBrains Mono',monospace;font-size:8.4pt;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:3.5mm;}
+  .contact{font-family:'JetBrains Mono',monospace;font-size:7.8pt;color:var(--muted);display:flex;flex-wrap:wrap;gap:1mm 6mm;letter-spacing:.02em;}
+  .contact a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--rule);}
+  .contact .hi{color:var(--accent);border-bottom-color:var(--accent);font-weight:700;}
+
+  h2{font-family:'JetBrains Mono',monospace;font-size:7.2pt;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin:4.4mm 0 2mm;padding-bottom:1.4mm;border-bottom:1px solid var(--rule);}
+  h2:first-of-type{margin-top:0;}
+  .profil{font-size:9.4pt;margin:0;}
+  .profil strong{font-weight:700;}
+
+  .real{margin-bottom:3.6mm;}
+  .real-top{display:flex;justify-content:space-between;align-items:baseline;gap:4mm;margin-bottom:1mm;}
+  .real-t{font-family:'Fraunces',serif;font-weight:600;font-size:10.4pt;letter-spacing:-.01em;}
+  .real-d{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--muted);white-space:nowrap;}
+  ul{margin:1.4mm 0 0;padding:0;list-style:none;}
+  li{padding-left:4mm;position:relative;margin-bottom:.5mm;}
+  li::before{content:'—';position:absolute;left:0;color:var(--accent);}
+  .stack{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--muted);margin-top:1.5mm;letter-spacing:.02em;}
+  .stack b{color:var(--ink);font-weight:500;}
+
+  .skills{display:grid;grid-template-columns:1fr 1fr;gap:0 8mm;}
+  .sk{margin-bottom:2.2mm;}
+  .sk-l{font-family:'JetBrains Mono',monospace;font-size:7.2pt;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);margin-bottom:.5mm;}
+  .sk-v{font-size:8.8pt;}
+
+  .xp{margin-bottom:2.8mm;}
+  .xp-top{display:flex;justify-content:space-between;align-items:baseline;gap:4mm;}
+  .xp-t{font-weight:700;font-size:9.6pt;}
+  .xp-d{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--muted);white-space:nowrap;}
+  .xp-o{font-family:'JetBrains Mono',monospace;font-size:7.6pt;color:var(--accent);letter-spacing:.04em;margin-bottom:.7mm;}
+  .xp-p{margin:0;font-size:8.9pt;}
+
+  .two{display:grid;grid-template-columns:1.35fr 1fr;gap:0 9mm;}
+  .fo{margin-bottom:2.2mm;}
+  .fo-t{font-weight:700;font-size:9pt;}
+  .fo-s{font-family:'JetBrains Mono',monospace;font-size:7.4pt;color:var(--muted);}
+  .lang{margin-bottom:1.7mm;}
+  .lang b{font-size:9pt;}
+  .lang span{font-family:'JetBrains Mono',monospace;font-size:7.6pt;color:var(--muted);display:block;}
+
+  footer{margin-top:6mm;padding-top:2.6mm;border-top:1px solid var(--rule);font-family:'JetBrains Mono',monospace;font-size:7.2pt;color:var(--muted);display:flex;justify-content:space-between;letter-spacing:.05em;}
+
+  .hint{max-width:210mm;margin:18px auto 0;padding:10px 14px;background:#16130F;color:#F4F0E7;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.03em;line-height:1.7;}
+  .hint b{color:#E8873F;}
+  #editBtn{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;background:#C93A16;color:#FFFDF9;border:0;padding:7px 14px;cursor:pointer;}
+  #editBtn:hover{background:#F4F0E7;color:#16130F;}
+
+  @page{size:A4;margin:0;}
+  @media print{
+    html,body{background:#fff;}
+    .sheet{margin:0;box-shadow:none;width:auto;padding:11mm 12mm;}
+    .hint{display:none;}
+    a{color:inherit;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hint">
+  <b>Export PDF (Safari) :</b> Cmd + P → Préréglages <b>Couleur</b> → cocher « Imprimer l'arrière-plan » → <b>DÉCOCHER « Imprimer les en-têtes et pieds de page »</b> → échelle 100 % → menu <b>PDF</b> en bas à gauche → « Enregistrer au format PDF ». Nomme-le <b>CV-Vincent-Bouchet.pdf</b>, dépose-le à la racine du dépôt GitHub. Jamais de JPG.<br>
+  <b>Retouche rapide :</b> active l'édition ci-dessous, modifie le texte dans la page, puis exporte. Pour une modification définitive, édite le .html dans un éditeur de texte.
+  <button id="editBtn" onclick="toggleEdit()">Activer l'édition</button>
+</div>
+<script>
+  var editing=false;
+  function toggleEdit(){
+    editing=!editing;
+    var s=document.querySelector('.sheet');
+    s.setAttribute('contenteditable',editing);
+    document.getElementById('editBtn').textContent=editing?"Désactiver l'édition":"Activer l'édition";
+    s.style.outline=editing?'2px dashed #C93A16':'none';
+  }
+</script>
+
+<div class="sheet">
+
+  <header>
+    <div class="name">Vincent Bouchet Ferrara</div>
+    <div class="role">Intégration &amp; automatisation · n8n · API · Supabase · Stripe</div>
+    <div class="contact">
+      <span>Marseille, France</span>
+      <span>Télétravail · mobile, permis B</span>
+      <a href="mailto:vincent.bouchetferrara@gmail.com">vincent.bouchetferrara@gmail.com</a>
+      <a href="https://www.linkedin.com/in/vincent-sjs-vinv/">linkedin.com/in/vincent-sjs-vinv</a>
+      <a class="hi" href="https://vinovi13.github.io/">vinovi13.github.io</a>
+    </div>
+  </header>
+
+  <h2>Profil</h2>
+  <p class="profil">
+    Je construis des automatisations et je les exploite au quotidien. J'ai développé seul un SaaS complet, front React et
+    backend Supabase, avec des paiements Stripe en mode live. Toute l'orchestration repose sur une instance n8n
+    auto-hébergée que j'administre sur VPS Linux. Ce que je livre tient en production : gestion d'erreurs, reprise sur
+    échec, supervision, retour arrière, sauvegardes. Je réimplémente aussi en interne des outils SaaS payants et j'audite
+    une infrastructure pour en réduire le coût d'exploitation. <strong>Français natif, anglais bilingue.</strong>
+  </p>
+
+  <h2>Réalisations techniques</h2>
+
+  <div class="real">
+    <div class="real-top">
+      <span class="real-t">SaaS de recherche d'emploi assistée par IA</span>
+      <span class="real-d">depuis mars 2026 · en production</span>
+    </div>
+    <ul>
+      <li>Orchestration complète par n8n auto-hébergé sur VPS Docker : collecte multi-sources, analyse, insertion en base, déclenchement des emails</li>
+      <li>Agrégation d'offres via plusieurs API aux schémas incompatibles (Google Jobs, Adzuna, France Travail), normalisation et déduplication</li>
+      <li>Backend Supabase et front React 18 + Tailwind, déploiement par build statique avec pré-rendu des pages publiques</li>
+      <li>Intégration Stripe en mode live : abonnements et packs, webhooks, facturation à l'usage avec débit par résultat livré</li>
+      <li>Une offre non évaluée par le modèle n'est jamais livrée avec un score par défaut : elle est exclue et journalisée</li>
+      <li>Gestion d'erreurs, reprise sur échec, exécutions planifiées et supervision</li>
+      <li>Emails transactionnels avec SPF, DKIM et DMARC configurés et validés</li>
+    </ul>
+    <div class="stack"><b>Stack</b> : n8n · Docker · Supabase · Stripe · React · Tailwind · API REST</div>
+  </div>
+
+  <div class="real">
+    <div class="real-top">
+      <span class="real-t">Chaîne de déploiement et de supervision pilotée depuis Telegram</span>
+      <span class="real-d">en production</span>
+    </div>
+    <ul>
+      <li>Instance n8n auto-hébergée sous Docker sur VPS Linux, administrée en autonomie complète</li>
+      <li>Assistant IA analysant le code concerné et proposant un correctif soumis à approbation avant tout déploiement</li>
+      <li>Retour arrière automatique en cas d'échec du build ou du contrôle de santé, puis audit de performance a posteriori</li>
+      <li>Gestionnaire d'erreurs global avec désactivation automatique des workflows en échec répété</li>
+      <li>Contrôles de santé planifiés toutes les cinq minutes, sauvegardes quotidiennes, alertes de disponibilité</li>
+    </ul>
+    <div class="stack"><b>Stack</b> : n8n · Docker · VPS Linux · Bash · SQLite · API Telegram</div>
+  </div>
+
+  <div class="real">
+    <div class="real-top">
+      <span class="real-t">Marque e-commerce et chaîne de production de contenu</span>
+      <span class="real-d">depuis mi-2023</span>
+    </div>
+    <ul>
+      <li>Boutique WordPress / WooCommerce sous Elementor : mise en place, personnalisation, suivi des conversions</li>
+      <li>Chaîne de génération vidéo automatisée : génération de plans, synthèse vocale, transcription pour sous-titrage, montage par FFmpeg</li>
+      <li>Coût unitaire connu avant génération, volume mensuel borné par une enveloppe fixe</li>
+      <li>Prospection B2B et suivi des réponses automatisés par n8n</li>
+    </ul>
+    <div class="stack"><b>Stack</b> : WordPress · WooCommerce · Elementor · FFmpeg · ElevenLabs · fal.ai · n8n</div>
+  </div>
+
+  <h2>Compétences</h2>
+  <div class="skills">
+    <div class="sk">
+      <div class="sk-l">Automatisation &amp; intégration</div>
+      <div class="sk-v">n8n auto-hébergé (Docker, VPS) · API REST · webhooks · gestion d'erreurs et reprise · tâches planifiées · alimentation automatique de CRM · reprise de workflows hérités</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">Données &amp; backend</div>
+      <div class="sk-v">Supabase · requêtes SQL · Edge Functions · déduplication et contraintes d'unicité</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">Collecte de données &amp; API emploi</div>
+      <div class="sk-v">Google Jobs · Adzuna · France Travail · plateformes d'emploi à distance · consolidation multi-sources</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">Paiement</div>
+      <div class="sk-v">Stripe en production : abonnements, packs, webhooks, facturation à l'usage</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">Frontend &amp; CMS</div>
+      <div class="sk-v">React 18 · Tailwind CSS · JavaScript · HTML / CSS · WordPress · WooCommerce · Elementor</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">Infrastructure &amp; maîtrise des coûts</div>
+      <div class="sk-v">Linux · Docker · déploiement automatisé · supervision · sauvegardes · SPF / DKIM / DMARC · audit et réduction des coûts d'exploitation</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">IA appliquée &amp; production média</div>
+      <div class="sk-v">Intégration d'API de modèles · extraction structurée · scoring · maîtrise du coût par appel · ElevenLabs · fal.ai · FFmpeg</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">Supervision conversationnelle</div>
+      <div class="sk-v">Assistants IA Telegram pour le pilotage et le suivi de workflows à distance</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">Acquisition &amp; mesure</div>
+      <div class="sk-v">Meta Ads · Gestionnaire d'événements Meta · suivi de conversion · SEO technique</div>
+    </div>
+    <div class="sk">
+      <div class="sk-l">Création</div>
+      <div class="sk-v">Ableton Live (intermédiaire à avancé) · CapCut · Canva</div>
+    </div>
+  </div>
+
+  <h2>Expérience</h2>
+
+  <div class="xp">
+    <div class="xp-top">
+      <span class="xp-t">Développeur indépendant — automatisation et intégrations</span>
+      <span class="xp-d">depuis 2023</span>
+    </div>
+    <div class="xp-o">Auto-entrepreneur · Marseille</div>
+    <p class="xp-p">Conception, développement et exploitation de produits web et d'automatisations de processus, pour compte propre et pour clients. Intégrations API, sites WordPress et WooCommerce, mise en place de suivi de conversion, administration de serveur Linux.</p>
+  </div>
+
+  <div class="xp">
+    <div class="xp-top">
+      <span class="xp-t">SmartJobScan — fondateur et développeur</span>
+      <span class="xp-d">depuis mars 2026</span>
+    </div>
+    <div class="xp-o">Projet en production</div>
+    <p class="xp-p">Conception et exploitation d'un SaaS de recherche d'emploi assistée par IA, du premier commit jusqu'à la facturation client.</p>
+  </div>
+
+  <div class="xp">
+    <div class="xp-top">
+      <span class="xp-t">VINV Clothing — fondateur</span>
+      <span class="xp-d">depuis mi-2023</span>
+    </div>
+    <div class="xp-o">Marque e-commerce</div>
+    <p class="xp-p">Lancement et gestion d'une marque de vêtements. Boutique en ligne, production de contenu, acquisition, prospection B2B automatisée.</p>
+  </div>
+
+  <div class="xp">
+    <div class="xp-top">
+      <span class="xp-t">Activités indépendantes et séjour à l'étranger</span>
+      <span class="xp-d">2019 – 2023</span>
+    </div>
+    <div class="xp-o">France et Australie</div>
+    <p class="xp-p">Séjour longue durée en Australie, en environnement anglophone. Production musicale (composition et arrangement sur Ableton Live pour artistes), organisation d'événements, travaux de second œuvre en appui d'équipes de chantier.</p>
+  </div>
+
+  <div class="xp">
+    <div class="xp-top">
+      <span class="xp-t">Assistant comptable et gestion</span>
+      <span class="xp-d">janv. – juin 2019</span>
+    </div>
+    <div class="xp-o">Autogrill · Marseille</div>
+    <p class="xp-p">Comptabilité générale, suivi administratif, reporting et contrôle de conformité.</p>
+  </div>
+
+  <div class="two">
+    <div>
+      <h2>Formation</h2>
+      <div class="fo">
+        <div class="fo-t">Formation autodidacte</div>
+        <div class="fo-s">Développement web, automatisation, intégration d'API, infrastructure · depuis 2023</div>
+      </div>
+      <div class="fo">
+        <div class="fo-t">DCG — parcours partiel</div>
+        <div class="fo-s">Lycée Charles Péguy, Marseille · 2016–2018</div>
+      </div>
+      <div class="fo">
+        <div class="fo-t">BTS Comptabilité et Gestion</div>
+        <div class="fo-s">Lycée Marie Curie, Marseille · 2014–2016</div>
+      </div>
+    </div>
+    <div>
+      <h2>Langues</h2>
+      <div class="lang"><b>Français</b><span>langue maternelle</span></div>
+      <div class="lang"><b>Anglais — bilingue</b><span>séjour longue durée en Australie</span></div>
+      <div class="lang"><b>Espagnol</b><span>intermédiaire</span></div>
+    </div>
+  </div>
+
+  <footer>
+    <span>vinovi13.github.io</span>
+    <span>Télétravail · missions France, Suisse et international</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
