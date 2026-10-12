@@ -149,7 +149,7 @@
   <!-- ============ 01 RÉALISATIONS ============ -->
   <section class="sec fade" id="realisations" style="animation-delay:.1s">
     <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Réalisations</h2></div>
-    <p class="sec-intro">Trois systèmes construits et opérés seul, de la conception à l'exploitation quotidienne. Pour chacun, le problème de départ, les arbitrages techniques, et ce qui tourne aujourd'hui.</p>
+    <p class="sec-intro">Trois systèmes construits et opérés seul, de la conception à l'exploitation quotidienne. Pour chacun, le problème de départ, les arbitrages techniques, et ce qui est en place.</p>
 
     <article class="case open">
       <button class="case-btn" onclick="tog(this)">
@@ -162,14 +162,14 @@
       </button>
       <div class="case-body">
         <div class="lbl">Le problème</div>
-        <p>Agréger des offres d'emploi venant de quatre API qui ne partagent ni format, ni identifiants, ni qualité de données. Les analyser, les classer, et facturer l'utilisateur au résultat effectivement livré.</p>
+        <p>Agréger des offres d'emploi venant de plusieurs API qui ne partagent ni format, ni identifiants, ni qualité de données. Les analyser, les classer, et facturer l'utilisateur au résultat effectivement livré.</p>
 
         <div class="lbl">Décisions techniques</div>
         <div class="dec"><div class="dec-t">Déduplication sur le contenu plutôt que sur l'URL</div><div class="dec-d">La même offre apparaît sous des adresses différentes selon la source. La clé est construite sur l'intitulé et le nom d'entreprise normalisé, après suppression des formes juridiques, des mentions d'agence et des suffixes. La règle est appliquée à l'identique côté applicatif et par un index d'unicité en base. Les deux doivent coïncider, sinon la même offre est facturée deux fois.</div></div>
         <div class="dec"><div class="dec-t">Facturation adossée à l'insertion réelle</div><div class="dec-d">Le débit suit le nombre d'insertions réussies, pas le nombre d'offres traitées. Les rejets par contrainte d'unicité sont exclus du décompte. Le débit et la mise à jour de statut sont câblés en parallèle, jamais en série : en série, la seconde branche est silencieusement ignorée si la première échoue.</div></div>
         <div class="dec"><div class="dec-t">Contrôle du budget de sortie des modèles</div><div class="dec-d">Les modèles de langage facturent la sortie plusieurs fois le prix de l'entrée, et le raisonnement interne compte comme de la sortie. Chaque appel est plafonné, la température fixée par cas d'usage, et le raisonnement désactivé là où il n'apporte rien. Le scoring tourne par lots de douze offres, quatre appels en parallèle, avec reprise bornée sur échec.</div></div>
         <div class="dec"><div class="dec-t">Échec visible plutôt qu'invention</div><div class="dec-d">Une offre que le modèle n'a pas évaluée n'est jamais livrée avec un score par défaut. Elle est exclue et journalisée. Si tous les lots de scoring échouent, l'exécution s'arrête au lieu de livrer des données douteuses. Livrer une donnée fausse et la facturer coûte plus cher que ne rien livrer.</div></div>
-        <div class="dec"><div class="dec-t">Collecte multi-sources normalisée</div><div class="dec-d">France Travail, Adzuna, Google Jobs et des flux RSS, avec des schémas incompatibles. Normalisation vers un format unique, filtrage géographique par dictionnaire d'agglomérations, exclusion des intitulés hors sujet, puis consolidation avant analyse.</div></div>
+        <div class="dec"><div class="dec-t">Collecte multi-sources normalisée</div><div class="dec-d">France Travail, Adzuna, des flux RSS et des ATS employeurs (Lever, SmartRecruiters), avec des schémas incompatibles. Normalisation vers un format unique, filtrage géographique par dictionnaire d'agglomérations, exclusion des intitulés hors sujet, puis consolidation avant analyse.</div></div>
 
         <div class="lbl">Ce qui tourne</div>
         <ul class="res">
@@ -221,14 +221,14 @@
         <div class="lbl">Décisions techniques</div>
         <div class="dec"><div class="dec-t">Auto-hébergement plutôt que service géré</div><div class="dec-d">Instance n8n sous Docker sur VPS Linux. Aucun plafond d'exécutions, aucune dépendance à un tiers pour la disponibilité, contrôle complet des données qui transitent. En contrepartie, les sauvegardes, la supervision et les mises à jour sont à ma charge. C'est assumé et outillé.</div></div>
         <div class="dec"><div class="dec-t">Aucun déploiement sans approbation humaine</div><div class="dec-d">Un assistant IA analyse le code concerné et propose un correctif. Le différentiel part en validation. Rien ne s'applique avant réponse explicite. Un déploiement entièrement automatique, sans validation ni retour arrière, est une panne différée.</div></div>
-        <div class="dec"><div class="dec-t">Retour arrière automatique et vérification a posteriori</div><div class="dec-d">Si le build ou le contrôle de santé échoue après mise en ligne, le système revient à l'état précédent sans intervention. Un audit de performance repart après chaque déploiement, avec rapport sur le canal.</div></div>
-        <div class="dec"><div class="dec-t">Désactivation automatique en cas d'échec répété</div><div class="dec-d">Un gestionnaire d'erreurs global surveille les exécutions. Un workflow qui échoue plusieurs fois de suite est désactivé et signalé, au lieu de consommer des ressources et de propager des données erronées.</div></div>
+        <div class="dec"><div class="dec-t">Retour arrière et vérification a posteriori (conception)</div><div class="dec-d">Conçu pour que, si le build ou le contrôle de santé échoue après mise en ligne, le système revienne à l'état précédent sans intervention. Un audit de performance repart après chaque déploiement, avec rapport sur le canal.</div></div>
+        <div class="dec"><div class="dec-t">Classer les échecs avant d'agir</div><div class="dec-d">Un gestionnaire d'erreurs global reçoit toutes les exécutions en échec, les classe et alerte. La première version désactivait automatiquement un workflow en échec répété ; la version actuelle ne désactive plus rien seule, car une coupure automatique peut arrêter un flux sain sur une panne passagère d'un fournisseur.</div></div>
 
-        <div class="lbl">Ce qui tourne</div>
+        <div class="lbl">Ce qui est en place</div>
         <ul class="res">
-          <li>Exploitation complète depuis un mobile : diagnostic, correctif, déploiement, retour arrière</li>
-          <li>Contrôles de santé planifiés toutes les cinq minutes sur les services critiques</li>
-          <li>Sauvegardes quotidiennes et alertes de disponibilité sur les sites en production</li>
+          <li>Chaîne diagnostic, correctif soumis à approbation, déploiement et retour arrière construite et pilotée depuis un mobile (vidéo ci-dessous) ; mise en pause aujourd'hui, les déploiements se font à la main avec un test de fumée</li>
+          <li>Contrôles de santé planifiés et alertes Telegram conçus et configurés (première version : toutes les cinq minutes)</li>
+          <li>Sauvegarde quotidienne de la base n8n par script planifié, avec somme de contrôle</li>
         </ul>
 
         <div class="lbl">En fonctionnement</div>
@@ -357,10 +357,10 @@
     <div class="stack">
       <div class="col"><div class="col-l">Automatisation &amp; orchestration</div><ul><li>n8n auto-hébergé (Docker, VPS)</li><li>API REST · webhooks</li><li>Gestion d'erreurs &amp; reprise</li><li>Exécutions planifiées</li><li>Alimentation automatique de CRM</li></ul></div>
       <div class="col"><div class="col-l">Données &amp; backend</div><ul><li>Supabase · PostgreSQL</li><li>Requêtes SQL · SQLite</li><li>Edge Functions</li><li>Index d'unicité &amp; déduplication</li><li>Politiques d'accès au niveau ligne</li></ul></div>
-      <div class="col"><div class="col-l">Collecte &amp; API métier</div><ul><li>France Travail · Adzuna</li><li>Google Jobs · flux RSS</li><li>Normalisation multi-schémas</li><li>Filtrage géographique</li></ul></div>
+      <div class="col"><div class="col-l">Collecte &amp; API métier</div><ul><li>France Travail · Adzuna</li><li>Flux RSS · ATS employeurs</li><li>Normalisation multi-schémas</li><li>Filtrage géographique</li></ul></div>
       <div class="col"><div class="col-l">Paiement</div><ul><li>Stripe en production</li><li>Abonnements &amp; packs</li><li>Webhooks de paiement</li><li>Facturation à l'usage</li></ul></div>
       <div class="col"><div class="col-l">Frontend &amp; CMS</div><ul><li>React 18 · Tailwind</li><li>JavaScript · HTML / CSS</li><li>Build statique &amp; pré-rendu</li><li>WordPress · WooCommerce</li></ul></div>
-      <div class="col"><div class="col-l">Infrastructure &amp; exploitation</div><ul><li>Linux · Docker · VPS</li><li>Déploiement automatisé</li><li>Supervision &amp; sauvegardes</li><li>SPF / DKIM / DMARC</li><li>Audit de coûts d'exploitation</li></ul></div>
+      <div class="col"><div class="col-l">Infrastructure &amp; exploitation</div><ul><li>Linux · Docker · VPS</li><li>Déploiement scripté</li><li>Supervision &amp; sauvegardes</li><li>SPF / DKIM / DMARC</li><li>Audit de coûts d'exploitation</li></ul></div>
       <div class="col"><div class="col-l">IA appliquée</div><ul><li>Intégration d'API de modèles</li><li>Extraction structurée · scoring</li><li>Prompts à température contrôlée</li><li>Maîtrise du coût par appel</li><li>Garde-fous anti-invention</li></ul></div>
       <div class="col"><div class="col-l">Conformité</div><ul><li>Audit RGPD applicatif</li><li>Cloisonnement multi-comptes</li><li>Durées de conservation</li><li>Pseudonymisation</li></ul></div>
       <div class="col"><div class="col-l">Acquisition &amp; mesure</div><ul><li>Meta Ads</li><li>Suivi de conversion</li><li>SEO technique</li></ul></div>
