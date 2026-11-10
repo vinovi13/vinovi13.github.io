@@ -35,3 +35,8 @@ rendre la main) · sous-agent `verifier` (vérification inférentielle contre la
 spec) · `/spec <mission>` · `/retro` · `scripts/ralph.sh <mission>` (exécution
 longue bornée, lancée par Vincent uniquement). Définitions :
 `docs/agentic/NOTIONS.md`, à lire à la demande.
+
+Tout nouveau projet applique ce process dès sa création : kit canonique et
+bootstrap dans `vinovi13/aperfectjobforme` → `agent-library/agentic-kit/`
+(README). Une évolution du process se fait dans le kit, puis est redéployée
+dans chaque dépôt.

@@ -4,6 +4,9 @@
 #         RALPH_DRY_RUN=1 scripts/ralph.sh <mission>   # vérifie les garde-fous sans lancer l'agent
 # Chaque itération : agent sans mémoire → lit specs/<mission>/ → fait UNE tâche → checkers → commit.
 # Ne pousse, ne merge et ne déploie JAMAIS.
+# Permissions : en mode headless, les permissions de .claude/settings.json peuvent être
+# ignorées (dossier non « trusted »). Les outils autorisés sont donc passés explicitement :
+# RALPH_ALLOWED_TOOLS les remplace, RALPH_EXTRA_TOOLS les complète (liste séparée par des virgules).
 set -euo pipefail
 
 mission="${1:?usage: scripts/ralph.sh <mission> [max_iter] [budget_usd]}"
@@ -13,7 +16,8 @@ root="$(git rev-parse --show-toplevel)"
 cd "$root"
 spec="specs/$mission"
 tasks="$spec/tasks.md"
-log="$spec/ralph.log"
+mkdir -p "$root/.ralph"
+log="$root/.ralph/$mission.log"   # hors suivi git (.gitignore)
 
 die() { echo "ralph: $*" >&2; exit 1; }
 
@@ -43,11 +47,28 @@ Tu n'as aucune mémoire des itérations précédentes : l'état est dans les fic
 2. Prends la PREMIÈRE tâche non cochée de $tasks. Une seule.
 3. TDD : écris le test, constate l'échec, implémente, constate le succès.
 4. Lance scripts/agent-check.sh ; il doit être vert.
-5. Coche la tâche dans $tasks, puis : git add -A && git commit -m "feat($mission): <tâche>".
+5. Coche la tâche dans $tasks, puis git add des SEULS fichiers de la tâche (jamais de fichier généré :
+   cache, build, log) et git commit avec un message de la forme :
+   "feat($mission): <tâche>" puis une ligne vide puis "Rouge: <échec constaté avant le code>"
+   et "Vert: <résumé de la sortie de scripts/agent-check.sh>" (preuve TDD auditable).
 6. Si la tâche est bloquée (info manquante, prod, secret, décision), n'écris pas de code :
    ajoute '  - BLOQUÉ: <raison>' sous la tâche, commit, et termine.
 Interdits : git push, merge, déploiement, migration de prod, modification de tests existants pour les faire passer.
 EOF
+
+# Un outil par élément de tableau (les specs contiennent des espaces).
+if [ -n "${RALPH_ALLOWED_TOOLS:-}" ]; then
+  IFS=',' read -r -a ALLOWED <<< "$RALPH_ALLOWED_TOOLS"      # séparateur : virgule
+else
+  ALLOWED=(Read Edit Write Glob Grep
+    "Bash(scripts/agent-check.sh:*)" "Bash(bash scripts/agent-check.sh:*)"
+    "Bash(git status:*)" "Bash(git diff:*)" "Bash(git log:*)" "Bash(git add:*)" "Bash(git commit:*)"
+    "Bash(npm test:*)" "Bash(npx jest:*)" "Bash(npx craco test:*)" "Bash(npx tsc:*)" "Bash(node:*)"
+    "Bash(python3 -m pytest:*)" "Bash(python3 -m unittest:*)" "Bash(pytest:*)" "Bash(ls:*)" "Bash(cat:*)")
+fi
+if [ -n "${RALPH_EXTRA_TOOLS:-}" ]; then IFS=',' read -r -a _extra <<< "$RALPH_EXTRA_TOOLS"; ALLOWED+=("${_extra[@]}"); fi
+DENIED=("Bash(git push:*)" "Bash(git merge:*)" "Bash(git rebase:*)" "Bash(git reset:*)" "Bash(git checkout:*)"
+  "Bash(rsync:*)" "Bash(scp:*)" "Bash(ssh:*)" "Bash(curl:*)" "Bash(docker:*)" "Bash(rm -rf:*)")
 
 fails=0
 echo "=== ralph start $(date -Iseconds) mission=$mission max_iter=$max_iter" >> "$log"
@@ -57,6 +78,7 @@ for i in $(seq 1 "$max_iter"); do
   if grep -q 'BLOQUÉ:' "$tasks"; then echo "ralph: tâche bloquée, arrêt." | tee -a "$log"; break; fi
   echo "--- itération $i/$max_iter, tâches restantes=$left, $(date -Iseconds)" | tee -a "$log"
   printf '%s' "$PROMPT" | timeout 3600 claude -p --permission-mode acceptEdits \
+    --allowedTools "${ALLOWED[@]}" --disallowedTools "${DENIED[@]}" \
     --max-budget-usd "$budget" --output-format text >> "$log" 2>&1 || echo "ralph: l'itération $i a renvoyé une erreur" | tee -a "$log"
   if scripts/agent-check.sh >> "$log" 2>&1; then
     fails=0

@@ -42,3 +42,8 @@ qu'ils automatisent :
 Spec-driven : modèle dans `specs/_template/`. Exécution longue :
 `scripts/ralph.sh` (branche `work/*` et spec validée CP1 obligatoires,
 jamais de push, merge ou déploiement).
+
+Tout nouveau projet applique ce process dès sa création : kit canonique et
+bootstrap dans `vinovi13/aperfectjobforme` → `agent-library/agentic-kit/`
+(README). Une évolution du process se fait dans le kit, puis est redéployée
+dans chaque dépôt.

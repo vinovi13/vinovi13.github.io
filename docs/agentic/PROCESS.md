@@ -42,7 +42,8 @@ En cas de conflit, les règles du `CLAUDE.md` / `AGENTS.md` du dépôt priment
 2. Missions standard et longues : sous-agent `verifier` avec la spec et le
    diff → `PASS` exigé. `FAIL` : corriger et re-soumettre, 3 tours max, puis
    escalader à Vincent.
-3. Cocher la tâche dans `tasks.md`, commit sur `work/<mission>`.
+3. Cocher la tâche dans `tasks.md`, commit sur `work/<mission>` avec les
+   lignes `Rouge: …` (échec constaté avant le code) et `Vert: …` dans le message.
 
 ## 6. Livrer (CP4, CP5)
 

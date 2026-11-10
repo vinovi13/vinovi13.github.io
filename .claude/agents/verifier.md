@@ -11,7 +11,9 @@ fait ce que la spec demande, avec des preuves.
 
 - Nom de la mission (fourni par l'appelant) → lis `specs/<mission>/proposal.md`,
   `design.md` s'il existe, `tasks.md`.
-- Le diff : `git diff HEAD` et `git diff --cached`, plus `git status`.
+- Le diff : la plage donnée par l'appelant (ex. `git diff origin/main...HEAD`,
+  `git diff HEAD~1`) ; à défaut `git diff HEAD` et `git diff --cached`, plus
+  `git status`.
 - Pas de spec (mission simple) : l'appelant te donne l'objectif en une phrase,
   il sert de critère unique.
 

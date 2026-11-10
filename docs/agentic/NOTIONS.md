@@ -213,7 +213,10 @@ corrigée par la suivante.
   consécutifs ;
 - arrêt quand toutes les cases de `tasks.md` sont cochées ;
 - **ne pousse jamais, ne merge jamais, ne déploie jamais** ;
-- journal dans `specs/<mission>/ralph.log`.
+- journal dans `.ralph/<mission>.log` (ignoré par git) ;
+- chaque commit porte les lignes `Rouge:` et `Vert:` (preuve TDD auditable) ;
+- outils autorisés passés explicitement à `claude -p` ; `push`, `merge`, `ssh`,
+  `curl`, `docker` interdits.
 
 ### 14. Mécanismes d'autonomie
 
