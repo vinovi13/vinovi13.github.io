@@ -1,0 +1,26 @@
+name: Agent check
+
+# Rejoue scripts/agent-check.sh (checkers de la méthode agentique,
+# docs/agentic/NOTIONS.md §5). Lecture seule : aucun secret, aucun déploiement.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  agent-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Checkers
+        run: bash scripts/agent-check.sh
